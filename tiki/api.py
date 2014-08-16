@@ -5,7 +5,7 @@ from .trie import words, trie
 def tiki(segment=0):
     if segment <= 0:
         segment = rand([1,     2,      3,      4,      5,      6,      7,      8],
-                       [100,   1000,   200,    100,    30,     20,     15,     10])
+                       [50,    500,    400,    200,    30,     20,     15,     10])
     segment = min(segment, 8)
     result = rand(words, [i for i in range(1, len(words) + 1)])
     last_word = result[1:]
