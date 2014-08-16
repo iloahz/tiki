@@ -1,3 +1,6 @@
+import os
+
+
 class Trie():
     def __init__(self):
         self.son = [None] * 26
@@ -28,3 +31,12 @@ class Trie():
         if self.son[idx] is None:
             return []
         return self.son[idx].find(s, cur + 1)
+
+
+CUR_DIR = os.path.dirname(os.path.realpath(__file__))
+src = os.path.join(CUR_DIR, 'dict.txt')
+words = [word.rstrip('\n') for word in open(src)]
+words.sort(key=len)
+trie = Trie()
+for word in words:
+    trie.insert(word)

@@ -1,0 +1,6 @@
+.idea/
+build/
+dist/
+tiki.egg-info/
+
+*.pyc

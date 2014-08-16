@@ -1,26 +1,5 @@
-import os
-from trie import Trie
-from random import randint
-CUR_DIR = os.path.dirname(os.path.realpath(__file__))
-
-
-def rand(opt, prb):
-    s = [0]
-    for idx, val in enumerate(prb):
-        s.append(s[idx] + val)
-    choose = randint(1, s[-1])
-    for idx, val in enumerate(opt):
-        if choose <= s[idx + 1]:
-            return val
-    return None
-
-
-src = os.path.join(CUR_DIR, 'dict.txt')
-words = [word.rstrip('\n') for word in open(src)]
-words.sort(key=len)
-root = Trie()
-for word in words:
-    root.insert(word)
+from .utils import rand
+from .trie import words, trie
 
 
 def tiki(segment=0):
@@ -35,7 +14,7 @@ def tiki(segment=0):
                            [j * j * j for j in range(1, len(last_word) + 1)])
         for j in range(overlap_len, 0, -1):
             overlap = last_word[-j:]
-            next_opt = root.find(overlap)
+            next_opt = trie.find(overlap)
             if len(next_opt):
                 next_opt.sort(key=len)
                 next_word = rand(next_opt, [k for k in range(1, len(next_opt) + 1)])
