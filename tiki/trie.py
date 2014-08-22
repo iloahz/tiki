@@ -6,14 +6,14 @@ class Trie():
         self.son = [None] * 26
         self.sink = False
 
-    def insert(self, s, cur=0):
-        if cur >= len(s):
-            self.sink = True
-            return
-        idx = ord(s[cur]) - 97
-        if self.son[idx] is None:
-            self.son[idx] = Trie()
-        self.son[idx].insert(s, cur + 1)
+    def insert(self, s):
+        cur_node = self
+        for i in s:
+            idx = ord(i) - 97
+            if cur_node.son[idx] is None:
+                cur_node.son[idx] = Trie()
+            cur_node = cur_node.son[idx]
+        cur_node.sink = True
 
     def dfs(self, cur, result):
         if self.sink and len(cur) > 0:
@@ -22,15 +22,16 @@ class Trie():
             if self.son[i]:
                 self.son[i].dfs(cur + chr(i + 97), result)
 
-    def find(self, s, cur=0):
-        if cur >= len(s):
-            result = []
-            self.dfs('', result)
-            return result
-        idx = ord(s[cur]) - 97
-        if self.son[idx] is None:
-            return []
-        return self.son[idx].find(s, cur + 1)
+    def find(self, s):
+        cur_node = self
+        for i in s:
+            idx = ord(i) - 97
+            if cur_node.son[idx] is None:
+                return []
+            cur_node = cur_node.son[idx]
+        result = []
+        cur_node.dfs('', result)
+        return result
 
 
 CUR_DIR = os.path.dirname(os.path.realpath(__file__))
