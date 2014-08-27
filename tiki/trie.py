@@ -33,6 +33,15 @@ class Trie():
         cur_node.dfs('', result)
         return result
 
+    def exist(self, s):
+        cur_node = self
+        for i in s:
+            idx = ord(i) - 97
+            if cur_node.son[idx] is None:
+                return False
+            cur_node = cur_node.son[idx]
+        return cur_node.sink
+
 
 CUR_DIR = os.path.dirname(os.path.realpath(__file__))
 src = os.path.join(CUR_DIR, 'dict.txt')
